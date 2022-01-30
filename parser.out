@@ -1,0 +1,2270 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> fun_list
+Rule 2     fun_list -> function fun_list
+Rule 3     fun_list -> function
+Rule 4     function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+Rule 5     function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT
+Rule 6     par_list -> parameter COMMA par_list
+Rule 7     par_list -> parameter
+Rule 8     parameter -> type VARIABLE
+Rule 9     stmt_list -> statement COMMA stmt_list
+Rule 10    stmt_list -> statement DOT
+Rule 11    statement -> declaration
+Rule 12    statement -> assignment
+Rule 13    statement -> arithm_operation
+Rule 14    statement -> until
+Rule 15    statement -> check
+Rule 16    statement -> function_call
+Rule 17    statement -> robot_operation
+Rule 18    statement -> return
+Rule 19    declaration -> type variable_list R_ASSIGNMENT literal
+Rule 20    declaration -> FIELD type type variable_list R_ASSIGNMENT literal
+Rule 21    type -> TINY
+Rule 22    type -> SMALL
+Rule 23    type -> NORMAL
+Rule 24    type -> BIG
+Rule 25    variable_list -> VARIABLE variable_list
+Rule 26    variable_list -> VARIABLE
+Rule 27    literal -> U_NUMBER
+Rule 28    literal -> S_NUMBER
+Rule 29    assignment -> arithm_operation R_ASSIGNMENT arithm_operation
+Rule 30    assignment -> arithm_operation R_ASSIGNMENT assignment
+Rule 31    assignment -> arithm_operation L_ASSIGNMENT arithm_operation
+Rule 32    assignment -> arithm_operation L_ASSIGNMENT assignment
+Rule 33    arithm_operation -> OPEN_BR arithm_operation CLOSING_BR
+Rule 34    arithm_operation -> ADD arithm_operation
+Rule 35    arithm_operation -> SUB arithm_operation
+Rule 36    arithm_operation -> arithm_operation MUL arithm_operation
+Rule 37    arithm_operation -> arithm_operation DIV arithm_operation
+Rule 38    arithm_operation -> arithm_operation ADD arithm_operation
+Rule 39    arithm_operation -> arithm_operation SUB arithm_operation
+Rule 40    arithm_operation -> varlit
+Rule 41    varlit -> VARIABLE
+Rule 42    varlit -> literal
+Rule 43    comparison -> arithm_operation N_EQ arithm_operation
+Rule 44    comparison -> arithm_operation L_EQ arithm_operation
+Rule 45    comparison -> arithm_operation GR_EQ arithm_operation
+Rule 46    comparison -> arithm_operation N_EQ varlit
+Rule 47    comparison -> arithm_operation L_EQ varlit
+Rule 48    comparison -> arithm_operation GR_EQ varlit
+Rule 49    comparison -> varlit N_EQ arithm_operation
+Rule 50    comparison -> varlit L_EQ arithm_operation
+Rule 51    comparison -> varlit GR_EQ arithm_operation
+Rule 52    comparison -> varlit N_EQ varlit
+Rule 53    comparison -> varlit L_EQ varlit
+Rule 54    comparison -> varlit GR_EQ varlit
+Rule 55    until -> UNTIL comparison DO stmt_list
+Rule 56    check -> CHECK comparison DO stmt_list
+Rule 57    function_call -> VARIABLE OPEN_BR variable_list CLOSING_BR
+Rule 58    robot_operation -> GO
+Rule 59    robot_operation -> RL
+Rule 60    robot_operation -> RR
+Rule 61    robot_operation -> SONAR
+Rule 62    robot_operation -> COMPASS
+Rule 63    return -> RETURN varlit
+
+Terminals, with rules where they appear
+
+ADD                  : 34 38
+BEGIN                : 4 5
+BIG                  : 24
+CHECK                : 56
+CLOSING_BR           : 33 57
+COMMA                : 6 9
+COMPASS              : 62
+DIV                  : 37
+DO                   : 55 56
+DOT                  : 4 5 10
+END                  : 4 5
+FIELD                : 20
+GO                   : 58
+GR_EQ                : 45 48 51 54
+L_ASSIGNMENT         : 31 32
+L_EQ                 : 44 47 50 53
+MUL                  : 36
+NORMAL               : 23
+N_EQ                 : 43 46 49 52
+OPEN_BR              : 33 57
+RETURN               : 63
+RL                   : 59
+RR                   : 60
+R_ASSIGNMENT         : 19 20 29 30
+SMALL                : 22
+SONAR                : 61
+SQ_CLOSING_BR        : 4 5
+SQ_OPEN_BR           : 4 5
+SUB                  : 35 39
+S_NUMBER             : 28
+TINY                 : 21
+UNTIL                : 55
+U_NUMBER             : 27
+VARIABLE             : 4 5 8 25 26 41 57
+error                : 
+
+Nonterminals, with rules where they appear
+
+arithm_operation     : 13 29 29 30 31 31 32 33 34 35 36 36 37 37 38 38 39 39 43 43 44 44 45 45 46 47 48 49 50 51
+assignment           : 12 30 32
+check                : 15
+comparison           : 55 56
+declaration          : 11
+fun_list             : 1 2
+function             : 2 3
+function_call        : 16
+literal              : 19 20 42
+par_list             : 4 6
+parameter            : 6 7
+program              : 0
+return               : 18
+robot_operation      : 17
+statement            : 9 10
+stmt_list            : 4 5 9 55 56
+type                 : 4 5 8 19 20 20
+until                : 14
+variable_list        : 19 20 25 57
+varlit               : 40 46 47 48 49 50 51 52 52 53 53 54 54 63
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . fun_list
+    (2) fun_list -> . function fun_list
+    (3) fun_list -> . function
+    (4) function -> . type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (5) function -> . type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    program                        shift and go to state 1
+    fun_list                       shift and go to state 2
+    function                       shift and go to state 3
+    type                           shift and go to state 4
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> fun_list .
+
+    $end            reduce using rule 1 (program -> fun_list .)
+
+
+state 3
+
+    (2) fun_list -> function . fun_list
+    (3) fun_list -> function .
+    (2) fun_list -> . function fun_list
+    (3) fun_list -> . function
+    (4) function -> . type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (5) function -> . type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    $end            reduce using rule 3 (fun_list -> function .)
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    function                       shift and go to state 3
+    fun_list                       shift and go to state 9
+    type                           shift and go to state 4
+
+state 4
+
+    (4) function -> type . VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (5) function -> type . VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT
+
+    VARIABLE        shift and go to state 10
+
+
+state 5
+
+    (21) type -> TINY .
+
+    VARIABLE        reduce using rule 21 (type -> TINY .)
+    TINY            reduce using rule 21 (type -> TINY .)
+    SMALL           reduce using rule 21 (type -> TINY .)
+    NORMAL          reduce using rule 21 (type -> TINY .)
+    BIG             reduce using rule 21 (type -> TINY .)
+
+
+state 6
+
+    (22) type -> SMALL .
+
+    VARIABLE        reduce using rule 22 (type -> SMALL .)
+    TINY            reduce using rule 22 (type -> SMALL .)
+    SMALL           reduce using rule 22 (type -> SMALL .)
+    NORMAL          reduce using rule 22 (type -> SMALL .)
+    BIG             reduce using rule 22 (type -> SMALL .)
+
+
+state 7
+
+    (23) type -> NORMAL .
+
+    VARIABLE        reduce using rule 23 (type -> NORMAL .)
+    TINY            reduce using rule 23 (type -> NORMAL .)
+    SMALL           reduce using rule 23 (type -> NORMAL .)
+    NORMAL          reduce using rule 23 (type -> NORMAL .)
+    BIG             reduce using rule 23 (type -> NORMAL .)
+
+
+state 8
+
+    (24) type -> BIG .
+
+    VARIABLE        reduce using rule 24 (type -> BIG .)
+    TINY            reduce using rule 24 (type -> BIG .)
+    SMALL           reduce using rule 24 (type -> BIG .)
+    NORMAL          reduce using rule 24 (type -> BIG .)
+    BIG             reduce using rule 24 (type -> BIG .)
+
+
+state 9
+
+    (2) fun_list -> function fun_list .
+
+    $end            reduce using rule 2 (fun_list -> function fun_list .)
+
+
+state 10
+
+    (4) function -> type VARIABLE . SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (5) function -> type VARIABLE . SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT
+
+    SQ_OPEN_BR      shift and go to state 11
+
+
+state 11
+
+    (4) function -> type VARIABLE SQ_OPEN_BR . par_list SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (5) function -> type VARIABLE SQ_OPEN_BR . SQ_CLOSING_BR BEGIN stmt_list END DOT
+    (6) par_list -> . parameter COMMA par_list
+    (7) par_list -> . parameter
+    (8) parameter -> . type VARIABLE
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    SQ_CLOSING_BR   shift and go to state 14
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    type                           shift and go to state 12
+    par_list                       shift and go to state 13
+    parameter                      shift and go to state 15
+
+state 12
+
+    (8) parameter -> type . VARIABLE
+
+    VARIABLE        shift and go to state 16
+
+
+state 13
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list . SQ_CLOSING_BR BEGIN stmt_list END DOT
+
+    SQ_CLOSING_BR   shift and go to state 17
+
+
+state 14
+
+    (5) function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR . BEGIN stmt_list END DOT
+
+    BEGIN           shift and go to state 18
+
+
+state 15
+
+    (6) par_list -> parameter . COMMA par_list
+    (7) par_list -> parameter .
+
+    COMMA           shift and go to state 19
+    SQ_CLOSING_BR   reduce using rule 7 (par_list -> parameter .)
+
+
+state 16
+
+    (8) parameter -> type VARIABLE .
+
+    COMMA           reduce using rule 8 (parameter -> type VARIABLE .)
+    SQ_CLOSING_BR   reduce using rule 8 (parameter -> type VARIABLE .)
+
+
+state 17
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR . BEGIN stmt_list END DOT
+
+    BEGIN           shift and go to state 20
+
+
+state 18
+
+    (5) function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN . stmt_list END DOT
+    (9) stmt_list -> . statement COMMA stmt_list
+    (10) stmt_list -> . statement DOT
+    (11) statement -> . declaration
+    (12) statement -> . assignment
+    (13) statement -> . arithm_operation
+    (14) statement -> . until
+    (15) statement -> . check
+    (16) statement -> . function_call
+    (17) statement -> . robot_operation
+    (18) statement -> . return
+    (19) declaration -> . type variable_list R_ASSIGNMENT literal
+    (20) declaration -> . FIELD type type variable_list R_ASSIGNMENT literal
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (55) until -> . UNTIL comparison DO stmt_list
+    (56) check -> . CHECK comparison DO stmt_list
+    (57) function_call -> . VARIABLE OPEN_BR variable_list CLOSING_BR
+    (58) robot_operation -> . GO
+    (59) robot_operation -> . RL
+    (60) robot_operation -> . RR
+    (61) robot_operation -> . SONAR
+    (62) robot_operation -> . COMPASS
+    (63) return -> . RETURN varlit
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    FIELD           shift and go to state 34
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    UNTIL           shift and go to state 39
+    CHECK           shift and go to state 40
+    VARIABLE        shift and go to state 22
+    GO              shift and go to state 41
+    RL              shift and go to state 42
+    RR              shift and go to state 43
+    SONAR           shift and go to state 44
+    COMPASS         shift and go to state 45
+    RETURN          shift and go to state 46
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    type                           shift and go to state 21
+    stmt_list                      shift and go to state 23
+    statement                      shift and go to state 24
+    declaration                    shift and go to state 25
+    assignment                     shift and go to state 26
+    arithm_operation               shift and go to state 27
+    until                          shift and go to state 28
+    check                          shift and go to state 29
+    function_call                  shift and go to state 30
+    robot_operation                shift and go to state 31
+    return                         shift and go to state 32
+    literal                        shift and go to state 33
+    varlit                         shift and go to state 38
+
+state 19
+
+    (6) par_list -> parameter COMMA . par_list
+    (6) par_list -> . parameter COMMA par_list
+    (7) par_list -> . parameter
+    (8) parameter -> . type VARIABLE
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    parameter                      shift and go to state 15
+    par_list                       shift and go to state 49
+    type                           shift and go to state 12
+
+state 20
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN . stmt_list END DOT
+    (9) stmt_list -> . statement COMMA stmt_list
+    (10) stmt_list -> . statement DOT
+    (11) statement -> . declaration
+    (12) statement -> . assignment
+    (13) statement -> . arithm_operation
+    (14) statement -> . until
+    (15) statement -> . check
+    (16) statement -> . function_call
+    (17) statement -> . robot_operation
+    (18) statement -> . return
+    (19) declaration -> . type variable_list R_ASSIGNMENT literal
+    (20) declaration -> . FIELD type type variable_list R_ASSIGNMENT literal
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (55) until -> . UNTIL comparison DO stmt_list
+    (56) check -> . CHECK comparison DO stmt_list
+    (57) function_call -> . VARIABLE OPEN_BR variable_list CLOSING_BR
+    (58) robot_operation -> . GO
+    (59) robot_operation -> . RL
+    (60) robot_operation -> . RR
+    (61) robot_operation -> . SONAR
+    (62) robot_operation -> . COMPASS
+    (63) return -> . RETURN varlit
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    FIELD           shift and go to state 34
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    UNTIL           shift and go to state 39
+    CHECK           shift and go to state 40
+    VARIABLE        shift and go to state 22
+    GO              shift and go to state 41
+    RL              shift and go to state 42
+    RR              shift and go to state 43
+    SONAR           shift and go to state 44
+    COMPASS         shift and go to state 45
+    RETURN          shift and go to state 46
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    type                           shift and go to state 21
+    stmt_list                      shift and go to state 50
+    statement                      shift and go to state 24
+    declaration                    shift and go to state 25
+    assignment                     shift and go to state 26
+    arithm_operation               shift and go to state 27
+    until                          shift and go to state 28
+    check                          shift and go to state 29
+    function_call                  shift and go to state 30
+    robot_operation                shift and go to state 31
+    return                         shift and go to state 32
+    literal                        shift and go to state 33
+    varlit                         shift and go to state 38
+
+state 21
+
+    (19) declaration -> type . variable_list R_ASSIGNMENT literal
+    (25) variable_list -> . VARIABLE variable_list
+    (26) variable_list -> . VARIABLE
+
+    VARIABLE        shift and go to state 52
+
+    variable_list                  shift and go to state 51
+
+state 22
+
+    (57) function_call -> VARIABLE . OPEN_BR variable_list CLOSING_BR
+    (41) varlit -> VARIABLE .
+
+    OPEN_BR         shift and go to state 53
+    R_ASSIGNMENT    reduce using rule 41 (varlit -> VARIABLE .)
+    L_ASSIGNMENT    reduce using rule 41 (varlit -> VARIABLE .)
+    MUL             reduce using rule 41 (varlit -> VARIABLE .)
+    DIV             reduce using rule 41 (varlit -> VARIABLE .)
+    ADD             reduce using rule 41 (varlit -> VARIABLE .)
+    SUB             reduce using rule 41 (varlit -> VARIABLE .)
+    COMMA           reduce using rule 41 (varlit -> VARIABLE .)
+    DOT             reduce using rule 41 (varlit -> VARIABLE .)
+
+
+state 23
+
+    (5) function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list . END DOT
+
+    END             shift and go to state 54
+
+
+state 24
+
+    (9) stmt_list -> statement . COMMA stmt_list
+    (10) stmt_list -> statement . DOT
+
+    COMMA           shift and go to state 55
+    DOT             shift and go to state 56
+
+
+state 25
+
+    (11) statement -> declaration .
+
+    COMMA           reduce using rule 11 (statement -> declaration .)
+    DOT             reduce using rule 11 (statement -> declaration .)
+
+
+state 26
+
+    (12) statement -> assignment .
+
+    COMMA           reduce using rule 12 (statement -> assignment .)
+    DOT             reduce using rule 12 (statement -> assignment .)
+
+
+state 27
+
+    (13) statement -> arithm_operation .
+    (29) assignment -> arithm_operation . R_ASSIGNMENT arithm_operation
+    (30) assignment -> arithm_operation . R_ASSIGNMENT assignment
+    (31) assignment -> arithm_operation . L_ASSIGNMENT arithm_operation
+    (32) assignment -> arithm_operation . L_ASSIGNMENT assignment
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    COMMA           reduce using rule 13 (statement -> arithm_operation .)
+    DOT             reduce using rule 13 (statement -> arithm_operation .)
+    R_ASSIGNMENT    shift and go to state 57
+    L_ASSIGNMENT    shift and go to state 58
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 28
+
+    (14) statement -> until .
+
+    COMMA           reduce using rule 14 (statement -> until .)
+    DOT             reduce using rule 14 (statement -> until .)
+
+
+state 29
+
+    (15) statement -> check .
+
+    COMMA           reduce using rule 15 (statement -> check .)
+    DOT             reduce using rule 15 (statement -> check .)
+
+
+state 30
+
+    (16) statement -> function_call .
+
+    COMMA           reduce using rule 16 (statement -> function_call .)
+    DOT             reduce using rule 16 (statement -> function_call .)
+
+
+state 31
+
+    (17) statement -> robot_operation .
+
+    COMMA           reduce using rule 17 (statement -> robot_operation .)
+    DOT             reduce using rule 17 (statement -> robot_operation .)
+
+
+state 32
+
+    (18) statement -> return .
+
+    COMMA           reduce using rule 18 (statement -> return .)
+    DOT             reduce using rule 18 (statement -> return .)
+
+
+state 33
+
+    (42) varlit -> literal .
+
+    R_ASSIGNMENT    reduce using rule 42 (varlit -> literal .)
+    L_ASSIGNMENT    reduce using rule 42 (varlit -> literal .)
+    MUL             reduce using rule 42 (varlit -> literal .)
+    DIV             reduce using rule 42 (varlit -> literal .)
+    ADD             reduce using rule 42 (varlit -> literal .)
+    SUB             reduce using rule 42 (varlit -> literal .)
+    COMMA           reduce using rule 42 (varlit -> literal .)
+    DOT             reduce using rule 42 (varlit -> literal .)
+    CLOSING_BR      reduce using rule 42 (varlit -> literal .)
+    N_EQ            reduce using rule 42 (varlit -> literal .)
+    L_EQ            reduce using rule 42 (varlit -> literal .)
+    GR_EQ           reduce using rule 42 (varlit -> literal .)
+    DO              reduce using rule 42 (varlit -> literal .)
+
+
+state 34
+
+    (20) declaration -> FIELD . type type variable_list R_ASSIGNMENT literal
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    type                           shift and go to state 63
+
+state 35
+
+    (33) arithm_operation -> OPEN_BR . arithm_operation CLOSING_BR
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 64
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 36
+
+    (34) arithm_operation -> ADD . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 66
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 37
+
+    (35) arithm_operation -> SUB . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 67
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 38
+
+    (40) arithm_operation -> varlit .
+
+    R_ASSIGNMENT    reduce using rule 40 (arithm_operation -> varlit .)
+    L_ASSIGNMENT    reduce using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    COMMA           reduce using rule 40 (arithm_operation -> varlit .)
+    DOT             reduce using rule 40 (arithm_operation -> varlit .)
+    CLOSING_BR      reduce using rule 40 (arithm_operation -> varlit .)
+    N_EQ            reduce using rule 40 (arithm_operation -> varlit .)
+    L_EQ            reduce using rule 40 (arithm_operation -> varlit .)
+    GR_EQ           reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+
+state 39
+
+    (55) until -> UNTIL . comparison DO stmt_list
+    (43) comparison -> . arithm_operation N_EQ arithm_operation
+    (44) comparison -> . arithm_operation L_EQ arithm_operation
+    (45) comparison -> . arithm_operation GR_EQ arithm_operation
+    (46) comparison -> . arithm_operation N_EQ varlit
+    (47) comparison -> . arithm_operation L_EQ varlit
+    (48) comparison -> . arithm_operation GR_EQ varlit
+    (49) comparison -> . varlit N_EQ arithm_operation
+    (50) comparison -> . varlit L_EQ arithm_operation
+    (51) comparison -> . varlit GR_EQ arithm_operation
+    (52) comparison -> . varlit N_EQ varlit
+    (53) comparison -> . varlit L_EQ varlit
+    (54) comparison -> . varlit GR_EQ varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    comparison                     shift and go to state 68
+    arithm_operation               shift and go to state 69
+    varlit                         shift and go to state 70
+    literal                        shift and go to state 33
+
+state 40
+
+    (56) check -> CHECK . comparison DO stmt_list
+    (43) comparison -> . arithm_operation N_EQ arithm_operation
+    (44) comparison -> . arithm_operation L_EQ arithm_operation
+    (45) comparison -> . arithm_operation GR_EQ arithm_operation
+    (46) comparison -> . arithm_operation N_EQ varlit
+    (47) comparison -> . arithm_operation L_EQ varlit
+    (48) comparison -> . arithm_operation GR_EQ varlit
+    (49) comparison -> . varlit N_EQ arithm_operation
+    (50) comparison -> . varlit L_EQ arithm_operation
+    (51) comparison -> . varlit GR_EQ arithm_operation
+    (52) comparison -> . varlit N_EQ varlit
+    (53) comparison -> . varlit L_EQ varlit
+    (54) comparison -> . varlit GR_EQ varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    comparison                     shift and go to state 71
+    arithm_operation               shift and go to state 69
+    varlit                         shift and go to state 70
+    literal                        shift and go to state 33
+
+state 41
+
+    (58) robot_operation -> GO .
+
+    COMMA           reduce using rule 58 (robot_operation -> GO .)
+    DOT             reduce using rule 58 (robot_operation -> GO .)
+
+
+state 42
+
+    (59) robot_operation -> RL .
+
+    COMMA           reduce using rule 59 (robot_operation -> RL .)
+    DOT             reduce using rule 59 (robot_operation -> RL .)
+
+
+state 43
+
+    (60) robot_operation -> RR .
+
+    COMMA           reduce using rule 60 (robot_operation -> RR .)
+    DOT             reduce using rule 60 (robot_operation -> RR .)
+
+
+state 44
+
+    (61) robot_operation -> SONAR .
+
+    COMMA           reduce using rule 61 (robot_operation -> SONAR .)
+    DOT             reduce using rule 61 (robot_operation -> SONAR .)
+
+
+state 45
+
+    (62) robot_operation -> COMPASS .
+
+    COMMA           reduce using rule 62 (robot_operation -> COMPASS .)
+    DOT             reduce using rule 62 (robot_operation -> COMPASS .)
+
+
+state 46
+
+    (63) return -> RETURN . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    varlit                         shift and go to state 72
+    literal                        shift and go to state 33
+
+state 47
+
+    (27) literal -> U_NUMBER .
+
+    R_ASSIGNMENT    reduce using rule 27 (literal -> U_NUMBER .)
+    L_ASSIGNMENT    reduce using rule 27 (literal -> U_NUMBER .)
+    MUL             reduce using rule 27 (literal -> U_NUMBER .)
+    DIV             reduce using rule 27 (literal -> U_NUMBER .)
+    ADD             reduce using rule 27 (literal -> U_NUMBER .)
+    SUB             reduce using rule 27 (literal -> U_NUMBER .)
+    COMMA           reduce using rule 27 (literal -> U_NUMBER .)
+    DOT             reduce using rule 27 (literal -> U_NUMBER .)
+    CLOSING_BR      reduce using rule 27 (literal -> U_NUMBER .)
+    N_EQ            reduce using rule 27 (literal -> U_NUMBER .)
+    L_EQ            reduce using rule 27 (literal -> U_NUMBER .)
+    GR_EQ           reduce using rule 27 (literal -> U_NUMBER .)
+    DO              reduce using rule 27 (literal -> U_NUMBER .)
+
+
+state 48
+
+    (28) literal -> S_NUMBER .
+
+    R_ASSIGNMENT    reduce using rule 28 (literal -> S_NUMBER .)
+    L_ASSIGNMENT    reduce using rule 28 (literal -> S_NUMBER .)
+    MUL             reduce using rule 28 (literal -> S_NUMBER .)
+    DIV             reduce using rule 28 (literal -> S_NUMBER .)
+    ADD             reduce using rule 28 (literal -> S_NUMBER .)
+    SUB             reduce using rule 28 (literal -> S_NUMBER .)
+    COMMA           reduce using rule 28 (literal -> S_NUMBER .)
+    DOT             reduce using rule 28 (literal -> S_NUMBER .)
+    CLOSING_BR      reduce using rule 28 (literal -> S_NUMBER .)
+    N_EQ            reduce using rule 28 (literal -> S_NUMBER .)
+    L_EQ            reduce using rule 28 (literal -> S_NUMBER .)
+    GR_EQ           reduce using rule 28 (literal -> S_NUMBER .)
+    DO              reduce using rule 28 (literal -> S_NUMBER .)
+
+
+state 49
+
+    (6) par_list -> parameter COMMA par_list .
+
+    SQ_CLOSING_BR   reduce using rule 6 (par_list -> parameter COMMA par_list .)
+
+
+state 50
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list . END DOT
+
+    END             shift and go to state 73
+
+
+state 51
+
+    (19) declaration -> type variable_list . R_ASSIGNMENT literal
+
+    R_ASSIGNMENT    shift and go to state 74
+
+
+state 52
+
+    (25) variable_list -> VARIABLE . variable_list
+    (26) variable_list -> VARIABLE .
+    (25) variable_list -> . VARIABLE variable_list
+    (26) variable_list -> . VARIABLE
+
+    R_ASSIGNMENT    reduce using rule 26 (variable_list -> VARIABLE .)
+    CLOSING_BR      reduce using rule 26 (variable_list -> VARIABLE .)
+    VARIABLE        shift and go to state 52
+
+    variable_list                  shift and go to state 75
+
+state 53
+
+    (57) function_call -> VARIABLE OPEN_BR . variable_list CLOSING_BR
+    (25) variable_list -> . VARIABLE variable_list
+    (26) variable_list -> . VARIABLE
+
+    VARIABLE        shift and go to state 52
+
+    variable_list                  shift and go to state 76
+
+state 54
+
+    (5) function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END . DOT
+
+    DOT             shift and go to state 77
+
+
+state 55
+
+    (9) stmt_list -> statement COMMA . stmt_list
+    (9) stmt_list -> . statement COMMA stmt_list
+    (10) stmt_list -> . statement DOT
+    (11) statement -> . declaration
+    (12) statement -> . assignment
+    (13) statement -> . arithm_operation
+    (14) statement -> . until
+    (15) statement -> . check
+    (16) statement -> . function_call
+    (17) statement -> . robot_operation
+    (18) statement -> . return
+    (19) declaration -> . type variable_list R_ASSIGNMENT literal
+    (20) declaration -> . FIELD type type variable_list R_ASSIGNMENT literal
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (55) until -> . UNTIL comparison DO stmt_list
+    (56) check -> . CHECK comparison DO stmt_list
+    (57) function_call -> . VARIABLE OPEN_BR variable_list CLOSING_BR
+    (58) robot_operation -> . GO
+    (59) robot_operation -> . RL
+    (60) robot_operation -> . RR
+    (61) robot_operation -> . SONAR
+    (62) robot_operation -> . COMPASS
+    (63) return -> . RETURN varlit
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    FIELD           shift and go to state 34
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    UNTIL           shift and go to state 39
+    CHECK           shift and go to state 40
+    VARIABLE        shift and go to state 22
+    GO              shift and go to state 41
+    RL              shift and go to state 42
+    RR              shift and go to state 43
+    SONAR           shift and go to state 44
+    COMPASS         shift and go to state 45
+    RETURN          shift and go to state 46
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    statement                      shift and go to state 24
+    stmt_list                      shift and go to state 78
+    declaration                    shift and go to state 25
+    assignment                     shift and go to state 26
+    arithm_operation               shift and go to state 27
+    until                          shift and go to state 28
+    check                          shift and go to state 29
+    function_call                  shift and go to state 30
+    robot_operation                shift and go to state 31
+    return                         shift and go to state 32
+    type                           shift and go to state 21
+    literal                        shift and go to state 33
+    varlit                         shift and go to state 38
+
+state 56
+
+    (10) stmt_list -> statement DOT .
+
+    END             reduce using rule 10 (stmt_list -> statement DOT .)
+    COMMA           reduce using rule 10 (stmt_list -> statement DOT .)
+    DOT             reduce using rule 10 (stmt_list -> statement DOT .)
+
+
+state 57
+
+    (29) assignment -> arithm_operation R_ASSIGNMENT . arithm_operation
+    (30) assignment -> arithm_operation R_ASSIGNMENT . assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 79
+    assignment                     shift and go to state 80
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 58
+
+    (31) assignment -> arithm_operation L_ASSIGNMENT . arithm_operation
+    (32) assignment -> arithm_operation L_ASSIGNMENT . assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 81
+    assignment                     shift and go to state 82
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 59
+
+    (36) arithm_operation -> arithm_operation MUL . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 83
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 60
+
+    (37) arithm_operation -> arithm_operation DIV . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 84
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 61
+
+    (38) arithm_operation -> arithm_operation ADD . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 85
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 62
+
+    (39) arithm_operation -> arithm_operation SUB . arithm_operation
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 86
+    varlit                         shift and go to state 38
+    literal                        shift and go to state 33
+
+state 63
+
+    (20) declaration -> FIELD type . type variable_list R_ASSIGNMENT literal
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+
+    type                           shift and go to state 87
+
+state 64
+
+    (33) arithm_operation -> OPEN_BR arithm_operation . CLOSING_BR
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    CLOSING_BR      shift and go to state 88
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 65
+
+    (41) varlit -> VARIABLE .
+
+    CLOSING_BR      reduce using rule 41 (varlit -> VARIABLE .)
+    MUL             reduce using rule 41 (varlit -> VARIABLE .)
+    DIV             reduce using rule 41 (varlit -> VARIABLE .)
+    ADD             reduce using rule 41 (varlit -> VARIABLE .)
+    SUB             reduce using rule 41 (varlit -> VARIABLE .)
+    R_ASSIGNMENT    reduce using rule 41 (varlit -> VARIABLE .)
+    L_ASSIGNMENT    reduce using rule 41 (varlit -> VARIABLE .)
+    COMMA           reduce using rule 41 (varlit -> VARIABLE .)
+    DOT             reduce using rule 41 (varlit -> VARIABLE .)
+    N_EQ            reduce using rule 41 (varlit -> VARIABLE .)
+    L_EQ            reduce using rule 41 (varlit -> VARIABLE .)
+    GR_EQ           reduce using rule 41 (varlit -> VARIABLE .)
+    DO              reduce using rule 41 (varlit -> VARIABLE .)
+
+
+state 66
+
+    (34) arithm_operation -> ADD arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    ADD             reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    SUB             reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    COMMA           reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    DOT             reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    CLOSING_BR      reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    N_EQ            reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    L_EQ            reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    GR_EQ           reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    DO              reduce using rule 34 (arithm_operation -> ADD arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+
+  ! MUL             [ reduce using rule 34 (arithm_operation -> ADD arithm_operation .) ]
+  ! DIV             [ reduce using rule 34 (arithm_operation -> ADD arithm_operation .) ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 67
+
+    (35) arithm_operation -> SUB arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    ADD             reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    SUB             reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    COMMA           reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    DOT             reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    CLOSING_BR      reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    N_EQ            reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    L_EQ            reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    GR_EQ           reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    DO              reduce using rule 35 (arithm_operation -> SUB arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+
+  ! MUL             [ reduce using rule 35 (arithm_operation -> SUB arithm_operation .) ]
+  ! DIV             [ reduce using rule 35 (arithm_operation -> SUB arithm_operation .) ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 68
+
+    (55) until -> UNTIL comparison . DO stmt_list
+
+    DO              shift and go to state 89
+
+
+state 69
+
+    (43) comparison -> arithm_operation . N_EQ arithm_operation
+    (44) comparison -> arithm_operation . L_EQ arithm_operation
+    (45) comparison -> arithm_operation . GR_EQ arithm_operation
+    (46) comparison -> arithm_operation . N_EQ varlit
+    (47) comparison -> arithm_operation . L_EQ varlit
+    (48) comparison -> arithm_operation . GR_EQ varlit
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    N_EQ            shift and go to state 90
+    L_EQ            shift and go to state 91
+    GR_EQ           shift and go to state 92
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 70
+
+    (49) comparison -> varlit . N_EQ arithm_operation
+    (50) comparison -> varlit . L_EQ arithm_operation
+    (51) comparison -> varlit . GR_EQ arithm_operation
+    (52) comparison -> varlit . N_EQ varlit
+    (53) comparison -> varlit . L_EQ varlit
+    (54) comparison -> varlit . GR_EQ varlit
+    (40) arithm_operation -> varlit .
+
+  ! shift/reduce conflict for N_EQ resolved as shift
+  ! shift/reduce conflict for L_EQ resolved as shift
+  ! shift/reduce conflict for GR_EQ resolved as shift
+    N_EQ            shift and go to state 93
+    L_EQ            shift and go to state 94
+    GR_EQ           shift and go to state 95
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! N_EQ            [ reduce using rule 40 (arithm_operation -> varlit .) ]
+  ! L_EQ            [ reduce using rule 40 (arithm_operation -> varlit .) ]
+  ! GR_EQ           [ reduce using rule 40 (arithm_operation -> varlit .) ]
+
+
+state 71
+
+    (56) check -> CHECK comparison . DO stmt_list
+
+    DO              shift and go to state 96
+
+
+state 72
+
+    (63) return -> RETURN varlit .
+
+    COMMA           reduce using rule 63 (return -> RETURN varlit .)
+    DOT             reduce using rule 63 (return -> RETURN varlit .)
+
+
+state 73
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END . DOT
+
+    DOT             shift and go to state 97
+
+
+state 74
+
+    (19) declaration -> type variable_list R_ASSIGNMENT . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    literal                        shift and go to state 98
+
+state 75
+
+    (25) variable_list -> VARIABLE variable_list .
+
+    R_ASSIGNMENT    reduce using rule 25 (variable_list -> VARIABLE variable_list .)
+    CLOSING_BR      reduce using rule 25 (variable_list -> VARIABLE variable_list .)
+
+
+state 76
+
+    (57) function_call -> VARIABLE OPEN_BR variable_list . CLOSING_BR
+
+    CLOSING_BR      shift and go to state 99
+
+
+state 77
+
+    (5) function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .
+
+    TINY            reduce using rule 5 (function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    SMALL           reduce using rule 5 (function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    NORMAL          reduce using rule 5 (function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    BIG             reduce using rule 5 (function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    $end            reduce using rule 5 (function -> type VARIABLE SQ_OPEN_BR SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+
+
+state 78
+
+    (9) stmt_list -> statement COMMA stmt_list .
+
+    END             reduce using rule 9 (stmt_list -> statement COMMA stmt_list .)
+    COMMA           reduce using rule 9 (stmt_list -> statement COMMA stmt_list .)
+    DOT             reduce using rule 9 (stmt_list -> statement COMMA stmt_list .)
+
+
+state 79
+
+    (29) assignment -> arithm_operation R_ASSIGNMENT arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+    (29) assignment -> arithm_operation . R_ASSIGNMENT arithm_operation
+    (30) assignment -> arithm_operation . R_ASSIGNMENT assignment
+    (31) assignment -> arithm_operation . L_ASSIGNMENT arithm_operation
+    (32) assignment -> arithm_operation . L_ASSIGNMENT assignment
+
+    COMMA           reduce using rule 29 (assignment -> arithm_operation R_ASSIGNMENT arithm_operation .)
+    DOT             reduce using rule 29 (assignment -> arithm_operation R_ASSIGNMENT arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+    R_ASSIGNMENT    shift and go to state 57
+    L_ASSIGNMENT    shift and go to state 58
+
+
+state 80
+
+    (30) assignment -> arithm_operation R_ASSIGNMENT assignment .
+
+    COMMA           reduce using rule 30 (assignment -> arithm_operation R_ASSIGNMENT assignment .)
+    DOT             reduce using rule 30 (assignment -> arithm_operation R_ASSIGNMENT assignment .)
+
+
+state 81
+
+    (31) assignment -> arithm_operation L_ASSIGNMENT arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+    (29) assignment -> arithm_operation . R_ASSIGNMENT arithm_operation
+    (30) assignment -> arithm_operation . R_ASSIGNMENT assignment
+    (31) assignment -> arithm_operation . L_ASSIGNMENT arithm_operation
+    (32) assignment -> arithm_operation . L_ASSIGNMENT assignment
+
+    COMMA           reduce using rule 31 (assignment -> arithm_operation L_ASSIGNMENT arithm_operation .)
+    DOT             reduce using rule 31 (assignment -> arithm_operation L_ASSIGNMENT arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+    R_ASSIGNMENT    shift and go to state 57
+    L_ASSIGNMENT    shift and go to state 58
+
+
+state 82
+
+    (32) assignment -> arithm_operation L_ASSIGNMENT assignment .
+
+    COMMA           reduce using rule 32 (assignment -> arithm_operation L_ASSIGNMENT assignment .)
+    DOT             reduce using rule 32 (assignment -> arithm_operation L_ASSIGNMENT assignment .)
+
+
+state 83
+
+    (36) arithm_operation -> arithm_operation MUL arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    MUL             reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    DIV             reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    ADD             reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    SUB             reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    COMMA           reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    DOT             reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    CLOSING_BR      reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    N_EQ            reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    L_EQ            reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    GR_EQ           reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+    DO              reduce using rule 36 (arithm_operation -> arithm_operation MUL arithm_operation .)
+
+  ! MUL             [ shift and go to state 59 ]
+  ! DIV             [ shift and go to state 60 ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 84
+
+    (37) arithm_operation -> arithm_operation DIV arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    MUL             reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    DIV             reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    ADD             reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    SUB             reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    COMMA           reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    DOT             reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    CLOSING_BR      reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    N_EQ            reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    L_EQ            reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    GR_EQ           reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+    DO              reduce using rule 37 (arithm_operation -> arithm_operation DIV arithm_operation .)
+
+  ! MUL             [ shift and go to state 59 ]
+  ! DIV             [ shift and go to state 60 ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 85
+
+    (38) arithm_operation -> arithm_operation ADD arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    ADD             reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    SUB             reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    COMMA           reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    DOT             reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    CLOSING_BR      reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    N_EQ            reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    L_EQ            reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    GR_EQ           reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    DO              reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+
+  ! MUL             [ reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .) ]
+  ! DIV             [ reduce using rule 38 (arithm_operation -> arithm_operation ADD arithm_operation .) ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 86
+
+    (39) arithm_operation -> arithm_operation SUB arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    R_ASSIGNMENT    reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    L_ASSIGNMENT    reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    ADD             reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    SUB             reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    COMMA           reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    DOT             reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    CLOSING_BR      reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    N_EQ            reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    L_EQ            reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    GR_EQ           reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    DO              reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+
+  ! MUL             [ reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .) ]
+  ! DIV             [ reduce using rule 39 (arithm_operation -> arithm_operation SUB arithm_operation .) ]
+  ! ADD             [ shift and go to state 61 ]
+  ! SUB             [ shift and go to state 62 ]
+
+
+state 87
+
+    (20) declaration -> FIELD type type . variable_list R_ASSIGNMENT literal
+    (25) variable_list -> . VARIABLE variable_list
+    (26) variable_list -> . VARIABLE
+
+    VARIABLE        shift and go to state 52
+
+    variable_list                  shift and go to state 100
+
+state 88
+
+    (33) arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .
+
+    R_ASSIGNMENT    reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    L_ASSIGNMENT    reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    MUL             reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    DIV             reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    ADD             reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    SUB             reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    COMMA           reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    DOT             reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    CLOSING_BR      reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    N_EQ            reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    L_EQ            reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    GR_EQ           reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+    DO              reduce using rule 33 (arithm_operation -> OPEN_BR arithm_operation CLOSING_BR .)
+
+
+state 89
+
+    (55) until -> UNTIL comparison DO . stmt_list
+    (9) stmt_list -> . statement COMMA stmt_list
+    (10) stmt_list -> . statement DOT
+    (11) statement -> . declaration
+    (12) statement -> . assignment
+    (13) statement -> . arithm_operation
+    (14) statement -> . until
+    (15) statement -> . check
+    (16) statement -> . function_call
+    (17) statement -> . robot_operation
+    (18) statement -> . return
+    (19) declaration -> . type variable_list R_ASSIGNMENT literal
+    (20) declaration -> . FIELD type type variable_list R_ASSIGNMENT literal
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (55) until -> . UNTIL comparison DO stmt_list
+    (56) check -> . CHECK comparison DO stmt_list
+    (57) function_call -> . VARIABLE OPEN_BR variable_list CLOSING_BR
+    (58) robot_operation -> . GO
+    (59) robot_operation -> . RL
+    (60) robot_operation -> . RR
+    (61) robot_operation -> . SONAR
+    (62) robot_operation -> . COMPASS
+    (63) return -> . RETURN varlit
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    FIELD           shift and go to state 34
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    UNTIL           shift and go to state 39
+    CHECK           shift and go to state 40
+    VARIABLE        shift and go to state 22
+    GO              shift and go to state 41
+    RL              shift and go to state 42
+    RR              shift and go to state 43
+    SONAR           shift and go to state 44
+    COMPASS         shift and go to state 45
+    RETURN          shift and go to state 46
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    stmt_list                      shift and go to state 101
+    statement                      shift and go to state 24
+    declaration                    shift and go to state 25
+    assignment                     shift and go to state 26
+    arithm_operation               shift and go to state 27
+    until                          shift and go to state 28
+    check                          shift and go to state 29
+    function_call                  shift and go to state 30
+    robot_operation                shift and go to state 31
+    return                         shift and go to state 32
+    type                           shift and go to state 21
+    literal                        shift and go to state 33
+    varlit                         shift and go to state 38
+
+state 90
+
+    (43) comparison -> arithm_operation N_EQ . arithm_operation
+    (46) comparison -> arithm_operation N_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 102
+    varlit                         shift and go to state 103
+    literal                        shift and go to state 33
+
+state 91
+
+    (44) comparison -> arithm_operation L_EQ . arithm_operation
+    (47) comparison -> arithm_operation L_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 104
+    varlit                         shift and go to state 105
+    literal                        shift and go to state 33
+
+state 92
+
+    (45) comparison -> arithm_operation GR_EQ . arithm_operation
+    (48) comparison -> arithm_operation GR_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    arithm_operation               shift and go to state 106
+    varlit                         shift and go to state 107
+    literal                        shift and go to state 33
+
+state 93
+
+    (49) comparison -> varlit N_EQ . arithm_operation
+    (52) comparison -> varlit N_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    varlit                         shift and go to state 108
+    arithm_operation               shift and go to state 109
+    literal                        shift and go to state 33
+
+state 94
+
+    (50) comparison -> varlit L_EQ . arithm_operation
+    (53) comparison -> varlit L_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    varlit                         shift and go to state 110
+    arithm_operation               shift and go to state 111
+    literal                        shift and go to state 33
+
+state 95
+
+    (51) comparison -> varlit GR_EQ . arithm_operation
+    (54) comparison -> varlit GR_EQ . varlit
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    VARIABLE        shift and go to state 65
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    varlit                         shift and go to state 112
+    arithm_operation               shift and go to state 113
+    literal                        shift and go to state 33
+
+state 96
+
+    (56) check -> CHECK comparison DO . stmt_list
+    (9) stmt_list -> . statement COMMA stmt_list
+    (10) stmt_list -> . statement DOT
+    (11) statement -> . declaration
+    (12) statement -> . assignment
+    (13) statement -> . arithm_operation
+    (14) statement -> . until
+    (15) statement -> . check
+    (16) statement -> . function_call
+    (17) statement -> . robot_operation
+    (18) statement -> . return
+    (19) declaration -> . type variable_list R_ASSIGNMENT literal
+    (20) declaration -> . FIELD type type variable_list R_ASSIGNMENT literal
+    (29) assignment -> . arithm_operation R_ASSIGNMENT arithm_operation
+    (30) assignment -> . arithm_operation R_ASSIGNMENT assignment
+    (31) assignment -> . arithm_operation L_ASSIGNMENT arithm_operation
+    (32) assignment -> . arithm_operation L_ASSIGNMENT assignment
+    (33) arithm_operation -> . OPEN_BR arithm_operation CLOSING_BR
+    (34) arithm_operation -> . ADD arithm_operation
+    (35) arithm_operation -> . SUB arithm_operation
+    (36) arithm_operation -> . arithm_operation MUL arithm_operation
+    (37) arithm_operation -> . arithm_operation DIV arithm_operation
+    (38) arithm_operation -> . arithm_operation ADD arithm_operation
+    (39) arithm_operation -> . arithm_operation SUB arithm_operation
+    (40) arithm_operation -> . varlit
+    (55) until -> . UNTIL comparison DO stmt_list
+    (56) check -> . CHECK comparison DO stmt_list
+    (57) function_call -> . VARIABLE OPEN_BR variable_list CLOSING_BR
+    (58) robot_operation -> . GO
+    (59) robot_operation -> . RL
+    (60) robot_operation -> . RR
+    (61) robot_operation -> . SONAR
+    (62) robot_operation -> . COMPASS
+    (63) return -> . RETURN varlit
+    (21) type -> . TINY
+    (22) type -> . SMALL
+    (23) type -> . NORMAL
+    (24) type -> . BIG
+    (41) varlit -> . VARIABLE
+    (42) varlit -> . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    FIELD           shift and go to state 34
+    OPEN_BR         shift and go to state 35
+    ADD             shift and go to state 36
+    SUB             shift and go to state 37
+    UNTIL           shift and go to state 39
+    CHECK           shift and go to state 40
+    VARIABLE        shift and go to state 22
+    GO              shift and go to state 41
+    RL              shift and go to state 42
+    RR              shift and go to state 43
+    SONAR           shift and go to state 44
+    COMPASS         shift and go to state 45
+    RETURN          shift and go to state 46
+    TINY            shift and go to state 5
+    SMALL           shift and go to state 6
+    NORMAL          shift and go to state 7
+    BIG             shift and go to state 8
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    stmt_list                      shift and go to state 114
+    statement                      shift and go to state 24
+    declaration                    shift and go to state 25
+    assignment                     shift and go to state 26
+    arithm_operation               shift and go to state 27
+    until                          shift and go to state 28
+    check                          shift and go to state 29
+    function_call                  shift and go to state 30
+    robot_operation                shift and go to state 31
+    return                         shift and go to state 32
+    type                           shift and go to state 21
+    literal                        shift and go to state 33
+    varlit                         shift and go to state 38
+
+state 97
+
+    (4) function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .
+
+    TINY            reduce using rule 4 (function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    SMALL           reduce using rule 4 (function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    NORMAL          reduce using rule 4 (function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    BIG             reduce using rule 4 (function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+    $end            reduce using rule 4 (function -> type VARIABLE SQ_OPEN_BR par_list SQ_CLOSING_BR BEGIN stmt_list END DOT .)
+
+
+state 98
+
+    (19) declaration -> type variable_list R_ASSIGNMENT literal .
+
+    COMMA           reduce using rule 19 (declaration -> type variable_list R_ASSIGNMENT literal .)
+    DOT             reduce using rule 19 (declaration -> type variable_list R_ASSIGNMENT literal .)
+
+
+state 99
+
+    (57) function_call -> VARIABLE OPEN_BR variable_list CLOSING_BR .
+
+    COMMA           reduce using rule 57 (function_call -> VARIABLE OPEN_BR variable_list CLOSING_BR .)
+    DOT             reduce using rule 57 (function_call -> VARIABLE OPEN_BR variable_list CLOSING_BR .)
+
+
+state 100
+
+    (20) declaration -> FIELD type type variable_list . R_ASSIGNMENT literal
+
+    R_ASSIGNMENT    shift and go to state 115
+
+
+state 101
+
+    (55) until -> UNTIL comparison DO stmt_list .
+
+    COMMA           reduce using rule 55 (until -> UNTIL comparison DO stmt_list .)
+    DOT             reduce using rule 55 (until -> UNTIL comparison DO stmt_list .)
+
+
+state 102
+
+    (43) comparison -> arithm_operation N_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 43 (comparison -> arithm_operation N_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 103
+
+    (46) comparison -> arithm_operation N_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 46 (comparison -> arithm_operation N_EQ varlit .) ]
+
+
+state 104
+
+    (44) comparison -> arithm_operation L_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 44 (comparison -> arithm_operation L_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 105
+
+    (47) comparison -> arithm_operation L_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 47 (comparison -> arithm_operation L_EQ varlit .) ]
+
+
+state 106
+
+    (45) comparison -> arithm_operation GR_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 45 (comparison -> arithm_operation GR_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 107
+
+    (48) comparison -> arithm_operation GR_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 48 (comparison -> arithm_operation GR_EQ varlit .) ]
+
+
+state 108
+
+    (52) comparison -> varlit N_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 52 (comparison -> varlit N_EQ varlit .) ]
+
+
+state 109
+
+    (49) comparison -> varlit N_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 49 (comparison -> varlit N_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 110
+
+    (53) comparison -> varlit L_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 53 (comparison -> varlit L_EQ varlit .) ]
+
+
+state 111
+
+    (50) comparison -> varlit L_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 50 (comparison -> varlit L_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 112
+
+    (54) comparison -> varlit GR_EQ varlit .
+    (40) arithm_operation -> varlit .
+
+  ! reduce/reduce conflict for DO resolved using rule 40 (arithm_operation -> varlit .)
+    MUL             reduce using rule 40 (arithm_operation -> varlit .)
+    DIV             reduce using rule 40 (arithm_operation -> varlit .)
+    ADD             reduce using rule 40 (arithm_operation -> varlit .)
+    SUB             reduce using rule 40 (arithm_operation -> varlit .)
+    DO              reduce using rule 40 (arithm_operation -> varlit .)
+
+  ! DO              [ reduce using rule 54 (comparison -> varlit GR_EQ varlit .) ]
+
+
+state 113
+
+    (51) comparison -> varlit GR_EQ arithm_operation .
+    (36) arithm_operation -> arithm_operation . MUL arithm_operation
+    (37) arithm_operation -> arithm_operation . DIV arithm_operation
+    (38) arithm_operation -> arithm_operation . ADD arithm_operation
+    (39) arithm_operation -> arithm_operation . SUB arithm_operation
+
+    DO              reduce using rule 51 (comparison -> varlit GR_EQ arithm_operation .)
+    MUL             shift and go to state 59
+    DIV             shift and go to state 60
+    ADD             shift and go to state 61
+    SUB             shift and go to state 62
+
+
+state 114
+
+    (56) check -> CHECK comparison DO stmt_list .
+
+    COMMA           reduce using rule 56 (check -> CHECK comparison DO stmt_list .)
+    DOT             reduce using rule 56 (check -> CHECK comparison DO stmt_list .)
+
+
+state 115
+
+    (20) declaration -> FIELD type type variable_list R_ASSIGNMENT . literal
+    (27) literal -> . U_NUMBER
+    (28) literal -> . S_NUMBER
+
+    U_NUMBER        shift and go to state 47
+    S_NUMBER        shift and go to state 48
+
+    literal                        shift and go to state 116
+
+state 116
+
+    (20) declaration -> FIELD type type variable_list R_ASSIGNMENT literal .
+
+    COMMA           reduce using rule 20 (declaration -> FIELD type type variable_list R_ASSIGNMENT literal .)
+    DOT             reduce using rule 20 (declaration -> FIELD type type variable_list R_ASSIGNMENT literal .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for N_EQ in state 70 resolved as shift
+WARNING: shift/reduce conflict for L_EQ in state 70 resolved as shift
+WARNING: shift/reduce conflict for GR_EQ in state 70 resolved as shift
+WARNING: reduce/reduce conflict in state 103 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> arithm_operation N_EQ varlit) in state 103
+WARNING: reduce/reduce conflict in state 105 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> arithm_operation L_EQ varlit) in state 105
+WARNING: reduce/reduce conflict in state 107 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> arithm_operation GR_EQ varlit) in state 107
+WARNING: reduce/reduce conflict in state 108 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> varlit N_EQ varlit) in state 108
+WARNING: reduce/reduce conflict in state 110 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> varlit L_EQ varlit) in state 110
+WARNING: reduce/reduce conflict in state 112 resolved using rule (arithm_operation -> varlit)
+WARNING: rejected rule (comparison -> varlit GR_EQ varlit) in state 112
+WARNING: Rule (comparison -> arithm_operation N_EQ varlit) is never reduced
+WARNING: Rule (comparison -> arithm_operation L_EQ varlit) is never reduced
+WARNING: Rule (comparison -> arithm_operation GR_EQ varlit) is never reduced
+WARNING: Rule (comparison -> varlit N_EQ varlit) is never reduced
+WARNING: Rule (comparison -> varlit L_EQ varlit) is never reduced
+WARNING: Rule (comparison -> varlit GR_EQ varlit) is never reduced
