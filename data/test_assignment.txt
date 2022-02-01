@@ -1,0 +1,10 @@
+tiny main []
+begin
+    tiny cc << 1,
+    normal nn << +6,
+    normal pp << 9,
+    small bb << +F,
+    big kk << +V,
+    kk << bb << cc >> pp << nn,
+    return 0.
+end.

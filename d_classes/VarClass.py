@@ -56,9 +56,11 @@ class Variable:
                         raise NotImplementedError(
                             "Type mismatch! Unsigned big: 0..32768 [0..VVV]. You got: {}".format(var_value))
 
-        else:
+        else:  # if var_type not in ['s_small', 'u_small', 's_normal', 'u_normal', 's_big', 'u_big']:
             self.type = var_type
             self.value = var_value
+        # else:
+        #     if var_type =
 
     def __repr__(self):
         return f'{self.type} {self.value}'
@@ -73,21 +75,18 @@ class MatrixVar:
     def __init__(self, var_type, size_type, var_value):
         self.type = var_type
         if size_type == 'tiny':
-            self.size = 1
+            self.size = 2
         elif size_type == 'small':
-            self.size = 31
+            self.size = 32
         elif size_type == 'normal':
-            self.size = 1023
+            self.size = 1024
         elif size_type == 'big':
-            self.size = 32767
+            self.size = 32768
         var = Variable(var_type, var_value)
         self.matr = [[var.value] * self.size for _ in range(self.size)]
 
     def __repr__(self):
-        s_matr = ""
-        for line in self.matr:
-            s_matr += f'{line}\n'
-        return f'{self.type}:\n{s_matr}'
+        return f'{self.type} [{self.size} x {self.size}]'
 
 
 def to_decimal(n):
@@ -105,6 +104,16 @@ def converse(typeVar, value):  # приведение типов
         else:
             return Variable(typeVar, 1)
     # SMALL
+    elif typeVar == 'small':
+        if value in range(-16, 0):
+            return Variable('s_small', value)
+        elif value in range(0, 32):
+            return Variable('u_small', value)
+        else:
+            if abs(0 - value) < abs(31 - value):
+                return Variable('u_small', 0)
+            else:
+                return Variable('u_small', 31)
     elif typeVar == 'u_small':
         if value in range(0, 32):
             return Variable(typeVar, value)
@@ -123,6 +132,16 @@ def converse(typeVar, value):  # приведение типов
             else:
                 return Variable(typeVar, 15)
     # NORMAL
+    elif typeVar == 'normal':
+        if value in range(-512, 0):
+            return Variable('s_normal', value)
+        elif value in range(0, 1024):
+            return Variable('u_normal', value)
+        else:
+            if abs(0 - value) < abs(1023 - value):
+                return Variable('u_normal', 0)
+            else:
+                return Variable('u_normal', 1024)
     elif typeVar == 'u_normal':
         if value in range(0, 1024):
             return Variable(typeVar, value)
@@ -141,6 +160,16 @@ def converse(typeVar, value):  # приведение типов
             else:
                 return Variable(typeVar, 511)
     # BIG
+    elif typeVar == 'big':
+        if value in range(-16384, 0):
+            return Variable('s_big', value)
+        elif value in range(0, 32768):
+            return Variable('u_big', value)
+        else:
+            if abs(0 - value) < abs(32767 - value):
+                return Variable('u_big', 0)
+            else:
+                return Variable('u_big', 32767)
     elif typeVar == 'u_big':
         if value in range(0, 32768):
             return Variable(typeVar, value)

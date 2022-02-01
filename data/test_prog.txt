@@ -1,15 +1,12 @@
-tiny main []
+big main []
 begin
-    tiny k << 1,
-    small b << +A,
-    big p << 5U,
-    omegalol(k b p),
-    return b.
+    big number << +7,
+    small res << 0,
+    field small small big_matr << F,
+    field small tiny small_matr << U,
+    res << big_matr[5 7],
+    small_matr[0 1] << 0,
+    return res.
 end.
 
-tiny omegalol [tiny first, small second, big third]
-begin
-    until second * second <= third do
-        second << second + 1 . ,
-    return second.
-end.
+

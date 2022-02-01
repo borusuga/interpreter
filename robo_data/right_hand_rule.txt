@@ -1,0 +1,30 @@
+tiny main []
+begin
+    until isfinish() <> 1 do
+        rr,
+        rr,
+        until go <= 0 do
+            rl . . ,
+    return 1.
+end.
+
+tiny isfinish []
+begin
+    small i << 0,
+    tiny rett << 0,
+    tiny nextfin << 0,
+    until i <= 5 do
+        nextfin << 0,
+        i << i + 1,
+        check sonar => K do
+            rett << rett + 1 ,
+            nextfin << 1. ,
+        check nextfin <= 0 do
+            check go => 1 do
+                rr, rr, rr, go, rr, rr, rr,
+                rett << rett + 1 . . ,
+        rr . ,
+    check rett => 1 do
+        return 0. ,
+    return 1 .
+end.

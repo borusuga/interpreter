@@ -1,0 +1,10 @@
+big main []
+begin
+    sonar,
+    sonar,
+    compass,
+    go,
+    rl,
+    rl,
+    go.
+end.

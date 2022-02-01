@@ -75,6 +75,8 @@ class Lexer:
     t_MUL = r'\*'
     t_DIV = r'\/'
 
+    # t_SMALL = r'(sm)|(sma)|(smal)|(small)'
+
     def t_error(self, t):
         r'\n'
         t.lexer.lineno += 1
@@ -82,6 +84,74 @@ class Lexer:
 
     t_ignore = ' \t'
 
+    # ключевые слова могут быть сокращены до минимально распознаваемых лексем,
+    # например small = smal=sma=sm, т.к. нет ключевых слов начинающихся на sm
+    # (до s сокращать нельзя, т.к. есть sonar).
+    def t_TINY(self, t):
+        r'((t)|(ti)|(tin)|(tiny))(?=\ )'
+        t.value = 'tiny'
+        return t
+
+    def t_SMALL(self, t):
+        r'((sm)|(sma)|(smal)|(small))(?=\ )'
+        t.value = 'small'
+        return t
+
+    def t_NORMAL(self, t):
+        r'((n)|(no)|(nor)|(norm)|(norma)|(normal))(?=\ )'
+        t.value = 'normal'
+        return t
+
+    def t_BIG(self, t):
+        r'((bi)|(big))(?=[\ \.])'
+        t.value = 'big'
+        return t
+
+    def t_CHECK(self, t):
+        r'((ch)|(che)|(chec)|(check))(?=[\ ])'
+        t.value = 'check'
+        return t
+
+    def t_UNTIL(self, t):
+        r'((u)|(un)|(unt)|(unti)|(until))(?=[\ ])'
+        t.value = 'until'
+        return t
+
+    def t_DO(self, t):
+        r'((d)|(do))(?=[\ ])'
+        t.value = 'do'
+        return t
+
+    def t_SONAR(self, t):
+        r'((so)|(son)|(sona)|(sonar))(?=[\,\ ])'
+        t.value = 'sonar'
+        return t
+
+    def t_GO(self, t):
+        r'((g)|(go))(?=[\,\ ])'
+        t.value = 'go'
+        return t
+
+    def t_COMPASS(self, t):
+        r'((co)|(com)|(comp)|(compa)|(compas)|(compass))(?=[\,\ ])'
+        t.value = 'compass'
+        return t
+
+    def t_RETURN(self, t):
+        r'((re)|(ret)|(retu)|(retur)|(return))(?=[\,\ ])'
+        t.value = 'return'
+        return t
+
+    def t_BEGIN(self, t):
+        r'((be)|(beg)|(begi)|(begin))(?=[\ ])'
+        t.value = 'begin'
+        return t
+
+    def t_END(self, t):
+        r'((e)|(en)|(end))(?=[\ \.])'
+        t.value = 'end'
+        return t
+    ##########################################################
 
     def t_VARIABLE(self, t):
         r'[a-z][a-z_0-9]*'
@@ -124,10 +194,10 @@ class Lexer:
     def clear(self):
         self.tokens_list.clear()
 
-
-# pars = Lexer()
-# f = open('test_prog.txt', 'r')
-# data = f.read()
-# f.close()
-# pars.parse(data)
-# print('omegalol')
+if __name__ == '__main__':
+    pars = Lexer()
+    f = open('robo_data/right_hand_rule.txt', 'r')
+    data = f.read()
+    f.close()
+    pars.parse(data)
+    print('omegalol')

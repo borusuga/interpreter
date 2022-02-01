@@ -4,7 +4,7 @@ from ply import yacc
 from ply.lex import LexError
 
 from Lexer import Lexer
-from SyntaxTreeNode import SyntaxTreeNode
+from d_classes.SyntaxTreeNode import SyntaxTreeNode
 
 
 class Parser(object):
@@ -94,12 +94,23 @@ class Parser(object):
             p[0] = SyntaxTreeNode('par_list', children=[p[1], p[3]], lineno=p.lineno(3), lexpos=p.lexpos(3))
 
     def p_parameter(self, p):
-        """parameter : type VARIABLE"""
-        p[0] = SyntaxTreeNode('parameter',
-                              value=p[1],
-                              children=[SyntaxTreeNode('variable', value=p[2], lineno=p.lineno(2), lexpos=p.lexpos(2))],
-                              lineno=p.lineno(2),
-                              lexpos=p.lexpos(2))
+        """parameter : type VARIABLE
+                    | FIELD type type VARIABLE"""
+        # FIELD VARIABLE - добавлено +
+        if p[1] == 'field':
+            p[0] = SyntaxTreeNode('parameter_matr',
+                                  value=[p[3], p[4]],
+                                  children=[
+                                      SyntaxTreeNode('variable', value=p[4], lineno=p.lineno(1), lexpos=p.lexpos(1))],
+                                  lineno=p.lineno(1),
+                                  lexpos=p.lexpos(1))
+        else:
+            p[0] = SyntaxTreeNode('parameter',
+                                  value=p[1],
+                                  children=[
+                                      SyntaxTreeNode('variable', value=p[2], lineno=p.lineno(2), lexpos=p.lexpos(2))],
+                                  lineno=p.lineno(2),
+                                  lexpos=p.lexpos(2))
 
     #########################################################################
 
@@ -128,10 +139,11 @@ class Parser(object):
         # | until
         # | comparison
         # | check
-        # | function  ??????????????/ а оно вообще надо внуттри функции? - скорее всего нет    ]
+        # | function  ??????????????/ а оно вообще надо внутри функции? - скорее всего нет
         # | function_call """
         p[0] = p[1]
 
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!         <---------- arithm_operation <=> literal
     def p_declaration(self, p):
         """declaration : type variable_list R_ASSIGNMENT literal
                         | FIELD type type variable_list R_ASSIGNMENT literal"""
@@ -256,7 +268,9 @@ class Parser(object):
         #                       lexpos=p.lexpos(1))
 
     def p_arithm_operation_endpoints(self, p):
-        """arithm_operation : varlit"""
+        """arithm_operation : varlit
+                            | function_call
+                            | robot_operation"""
         p[0] = p[1]
 
     # def p_operator_low(self, p):
@@ -271,32 +285,37 @@ class Parser(object):
 
     def p_varlit(self, p):
         """varlit : VARIABLE
-                    | literal"""
+                    | literal
+                    | matr_elem"""
         if not hasattr(p[1], 'type'):
             p[0] = SyntaxTreeNode('variable', value=p[1], lineno=p.lineno(1), lexpos=p.lexpos(1))
         else:
             p[0] = p[1]
 
+    def p_matr_elem(self, p):
+        """matr_elem : VARIABLE SQ_OPEN_BR literal literal SQ_CLOSING_BR"""
+        # children - индексы элемента в матрице VARIABLE
+        p[0] = SyntaxTreeNode('matr_elem', value=p[1], children=[p[3], p[4]], lineno=p.lineno(1), lexpos=p.lexpos(1))
+
     def p_comparison(self, p):
         """comparison : arithm_operation N_EQ arithm_operation
                         | arithm_operation L_EQ arithm_operation
-                        | arithm_operation GR_EQ arithm_operation
-                        | arithm_operation N_EQ varlit
-                        | arithm_operation L_EQ varlit
-                        | arithm_operation GR_EQ varlit
-                        | varlit N_EQ arithm_operation
-                        | varlit L_EQ arithm_operation
-                        | varlit GR_EQ arithm_operation
-                        | varlit N_EQ varlit
-                        | varlit L_EQ varlit
-                        | varlit GR_EQ varlit"""
+                        | arithm_operation GR_EQ arithm_operation"""
+        # | arithm_operation N_EQ varlit
+        # | arithm_operation L_EQ varlit
+        # | arithm_operation GR_EQ varlit
+        # | varlit N_EQ arithm_operation
+        # | varlit L_EQ arithm_operation
+        # | varlit GR_EQ arithm_operation
+        # | varlit N_EQ varlit
+        # | varlit L_EQ varlit
+        # | varlit GR_EQ varlit"""
         # возможно нужны лишь первые три строчки, так как так дано в звдании
         p[0] = SyntaxTreeNode('comparison',
                               value=p[2],
                               children=[p[1], p[3]],
                               lineno=p.lineno(1),
                               lexpos=p.lexpos(1))
-
 
     def p_until(self, p):
         """until : UNTIL comparison DO stmt_list"""
@@ -317,12 +336,20 @@ class Parser(object):
                               lexpos=p.lexpos(1))
 
     def p_function_call(self, p):
-        """function_call : VARIABLE OPEN_BR variable_list CLOSING_BR"""
-        p[0] = SyntaxTreeNode('function_call',
-                              value=p[1],  # function name
-                              children=[p[3]],  # check body
-                              lineno=p.lineno(1),
-                              lexpos=p.lexpos(1))
+        """function_call : VARIABLE OPEN_BR CLOSING_BR
+                        | VARIABLE OPEN_BR variable_list CLOSING_BR"""
+        if len(p) == 4:
+            p[0] = SyntaxTreeNode('function_call',
+                                  value=p[1],  # function name
+                                  # children=[],  # var_list
+                                  lineno=p.lineno(1),
+                                  lexpos=p.lexpos(1))
+        else:
+            p[0] = SyntaxTreeNode('function_call',
+                                  value=p[1],  # function name
+                                  children=[p[3]],  # var_list
+                                  lineno=p.lineno(1),
+                                  lexpos=p.lexpos(1))
 
     def p_robot_operation(self, p):
         """robot_operation : GO
@@ -336,7 +363,8 @@ class Parser(object):
                               lexpos=p.lexpos(1))
 
     def p_return(self, p):
-        """return : RETURN varlit"""
+        """return : RETURN arithm_operation"""
+        # RETURN aritm_operation - добавлено +
         p[0] = SyntaxTreeNode('return',
                               value=p[1],  # == type
                               children=[p[2]],  # check body
@@ -365,10 +393,11 @@ class Parser(object):
     #                               lineno=p.lineno(1),
     #                               lexpos=p.lexpos(1))
 
+
 if __name__ == '__main__':
     parser = Parser()
 
-    f = open('data/test_prog.txt', 'r')
+    f = open('robo_data/right_hand_rule.txt', 'r')
     txt = f.read()
     f.close()
     print(f'INPUT: {txt}')
